@@ -1,31 +1,31 @@
 import { initState } from "./state.js";
 
 export function startREPL() {
-    const State = initState();
+    const state = initState();
 
-    State.readline.prompt();
+    state.readline.prompt();
 
-    State.readline.on("line", async (input: string) => {
+    state.readline.on("line", async (input: string) => {
         const words = cleanInput(input);
         if (words.length === 0) {
-            State.readline.prompt();
+            state.readline.prompt();
             return;
         }
 
         const commandName = words[0];
         try {
-            const commands = State.commands;
+            const commands = state.commands;
             const cmd = commands[commandName];
             if (!cmd) {
                 console.log("Unknown command");
-                State.readline.prompt();
+                state.readline.prompt();
                 return;
             }
-            cmd.callback(State);
-            State.readline.prompt()
-        } catch (error) {
-            console.log(error);
+            await cmd.callback(state);
+        } catch (err) {
+            console.log(`error: ${err}`);
         }
+        state.readline.prompt()
     });
 }
 
