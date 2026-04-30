@@ -24,7 +24,7 @@ export function initState (): State {
             prompt: "Pokedex > ",
         });
     const commands = getCommands();
-    const pokeAPI = new PokeAPI();
+    const pokeAPI = new PokeAPI(1000);
     const nextLocationsURL = null;
     const prevLocationsURL = null;
     return {readline, commands, pokeAPI, nextLocationsURL, prevLocationsURL};
