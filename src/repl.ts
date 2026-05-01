@@ -21,7 +21,7 @@ export function startREPL() {
                 state.readline.prompt();
                 return;
             }
-            await cmd.callback(state);
+            await cmd.callback(state, ...words.slice(1));     
         } catch (err) {
             console.log(`error: ${err}`);
         }
